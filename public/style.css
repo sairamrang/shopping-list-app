@@ -1,0 +1,658 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+/* Auth Screen */
+.auth-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.auth-container {
+  background: white;
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.auth-container h1 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 2.5em;
+}
+
+.auth-container p {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 1.1em;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 15px 30px;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #333;
+}
+
+.google-btn:hover {
+  border-color: #667eea;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+  transform: translateY(-2px);
+}
+
+/* App Layout */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 320px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #e0e0e0;
+}
+
+.sidebar-header {
+  padding: 25px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.sidebar-header h2 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 1.5em;
+}
+
+.new-trip-btn {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.new-trip-btn:hover {
+  transform: translateY(-2px);
+}
+
+.user-info {
+  padding: 20px 25px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9f9f9;
+}
+
+#userEmail {
+  font-size: 14px;
+  color: #666;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logout-btn {
+  padding: 6px 12px;
+  background: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.logout-btn:hover {
+  background: #e03e4a;
+}
+
+.trips-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.trip-item {
+  padding: 15px;
+  margin-bottom: 8px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.trip-item:hover {
+  background: #f0f0f0;
+  transform: translateX(5px);
+}
+
+.trip-item.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+}
+
+.trip-item-content {
+  flex: 1;
+  cursor: pointer;
+}
+
+.trip-item-name {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.trip-item.active .trip-item-name {
+  color: white;
+}
+
+.trip-item-date {
+  font-size: 13px;
+  color: #999;
+}
+
+.trip-item.active .trip-item-date {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.trip-delete-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: #ff4757;
+  color: white;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  flex-shrink: 0;
+  opacity: 0;
+}
+
+.trip-item:hover .trip-delete-btn {
+  opacity: 1;
+}
+
+.trip-delete-btn:hover {
+  background: #e03e4a;
+  transform: scale(1.1);
+}
+
+.trip-item.active .trip-delete-btn {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.trip-item.active .trip-delete-btn:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.empty-trips {
+  padding: 20px;
+  text-align: center;
+  color: #999;
+  font-style: italic;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  overflow-y: auto;
+  background: #f5f5f5;
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #999;
+  font-size: 1.2em;
+}
+
+#tripContent {
+  padding: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.trip-header {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.trip-header h1 {
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 2em;
+}
+
+.trip-header p {
+  color: #666;
+  font-size: 1em;
+}
+
+.add-item-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+#itemInput {
+  flex: 1;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  background: white;
+}
+
+#itemInput:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+#quantityInput {
+  width: 80px;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  background: white;
+  text-align: center;
+}
+
+#quantityInput:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+/* Remove spinner arrows for number input */
+#quantityInput::-webkit-inner-spin-button,
+#quantityInput::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+#addBtn {
+  padding: 15px 30px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#addBtn:hover {
+  transform: translateY(-2px);
+}
+
+#addBtn:active {
+  transform: translateY(0);
+}
+
+.categories {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.category {
+  margin-bottom: 25px;
+}
+
+.category:last-child {
+  margin-bottom: 0;
+}
+
+.category-header {
+  background: #f5f5f5;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #555;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.category-icon {
+  font-size: 1.3em;
+}
+
+.items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+
+.item:hover {
+  border-color: #667eea;
+  transform: translateX(5px);
+}
+
+.item.purchased {
+  opacity: 0.6;
+  background: #f9f9f9;
+}
+
+.item.purchased .item-name {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  cursor: pointer;
+  accent-color: #667eea;
+}
+
+.item-name {
+  flex: 1;
+  font-size: 16px;
+  color: #333;
+}
+
+.item-quantity {
+  color: #667eea;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+.delete-btn {
+  padding: 6px 12px;
+  background: #ff4757;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.delete-btn:hover {
+  background: #e03e4a;
+}
+
+.stats {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.empty-category {
+  color: #999;
+  font-style: italic;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #555;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 25px;
+}
+
+.btn-primary {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  padding: 12px 24px;
+  background: #f0f0f0;
+  color: #555;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+}
+
+/* Category specific colors */
+.category[data-category="produce"] .category-header {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.category[data-category="meat & seafood"] .category-header {
+  background: #fce4ec;
+  color: #ad1457;
+}
+
+.category[data-category="deli & prepared foods"] .category-header {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.category[data-category="dairy & eggs"] .category-header {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.category[data-category="frozen foods"] .category-header {
+  background: #e1f5fe;
+  color: #0277bd;
+}
+
+.category[data-category="bakery"] .category-header {
+  background: #fff9c4;
+  color: #f57f17;
+}
+
+.category[data-category="pantry & canned goods"] .category-header {
+  background: #f3e5f5;
+  color: #6a1b9a;
+}
+
+.category[data-category="oils & condiments"] .category-header {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.category[data-category="spices & baking"] .category-header {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.category[data-category="breakfast & cereal"] .category-header {
+  background: #fef5e7;
+  color: #d68910;
+}
+
+.category[data-category="snacks"] .category-header {
+  background: #fce4ec;
+  color: #880e4f;
+}
+
+.category[data-category="beverages"] .category-header {
+  background: #e0f2f1;
+  color: #00695c;
+}
+
+.category[data-category="household & cleaning"] .category-header {
+  background: #eceff1;
+  color: #455a64;
+}
+
+.category[data-category="personal care"] .category-header {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.category[data-category="baby & kids"] .category-header {
+  background: #fce4ec;
+  color: #c2185b;
+}
+
+.category[data-category="pet supplies"] .category-header {
+  background: #ede7f6;
+  color: #5e35b1;
+}
+
+.category[data-category="others"] .category-header {
+  background: #f5f5f5;
+  color: #616161;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    max-height: 40vh;
+  }
+
+  .main-content {
+    flex: 1;
+  }
+
+  #tripContent {
+    padding: 20px;
+  }
+}
