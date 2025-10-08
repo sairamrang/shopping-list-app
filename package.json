@@ -4,7 +4,9 @@
   "description": "Real-time shopping list with auto-categorization",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js",
+    "deploy": "git add . && git commit -m 'Deploy updates' && git push && vercel --prod"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.74.0",
