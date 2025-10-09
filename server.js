@@ -281,6 +281,30 @@ io.on('connection', (socket) => {
     }
   });
 
+  // Update item quantity
+  socket.on('updateQuantity', async ({ itemId, quantity }) => {
+    if (!userId || !userSupabase) {
+      socket.emit('error', 'Not authenticated');
+      return;
+    }
+
+    try {
+      const { data: item, error: updateError } = await userSupabase
+        .from('shopping_items')
+        .update({ quantity })
+        .eq('id', itemId)
+        .select()
+        .single();
+
+      if (updateError) throw updateError;
+
+      io.emit('itemUpdated', item);
+    } catch (error) {
+      console.error('Error updating quantity:', error);
+      socket.emit('error', 'Failed to update quantity');
+    }
+  });
+
   // Delete item
   socket.on('deleteItem', async (itemId) => {
     if (!userId || !userSupabase) {

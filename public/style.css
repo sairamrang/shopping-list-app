@@ -424,21 +424,37 @@ body {
   color: #667eea;
   font-weight: 600;
   margin-left: 8px;
+  cursor: pointer;
+  padding: 2px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.item-quantity:hover {
+  background: #f0f0ff;
+  text-decoration: underline;
 }
 
 .delete-btn {
-  padding: 6px 12px;
+  width: 24px;
+  height: 24px;
+  padding: 0;
   background: #ff4757;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 14px;
-  transition: background 0.3s;
+  font-size: 18px;
+  line-height: 24px;
+  transition: background 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .delete-btn:hover {
   background: #e03e4a;
+  transform: scale(1.1);
 }
 
 .stats {

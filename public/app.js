@@ -117,7 +117,10 @@ googleLoginBtn.addEventListener('click', async () => {
 
 // Logout
 logoutBtn.addEventListener('click', async () => {
-  await supabaseClient.auth.signOut();
+  await supabaseClient.auth.signOut({ scope: 'global' });
+  // Force clear local storage
+  localStorage.clear();
+  sessionStorage.clear();
 });
 
 // Handle successful authentication
@@ -364,6 +367,19 @@ function deleteItem(itemId) {
   socket.emit('deleteItem', itemId);
 }
 
+// Edit quantity inline
+function editQuantity(itemId, currentQuantity) {
+  const newQuantity = prompt('Enter new quantity:', currentQuantity);
+  if (newQuantity !== null && newQuantity.trim() !== '') {
+    const quantity = parseInt(newQuantity);
+    if (!isNaN(quantity) && quantity > 0) {
+      socket.emit('updateQuantity', { itemId, quantity });
+    } else {
+      alert('Please enter a valid number greater than 0');
+    }
+  }
+}
+
 // Delete trip
 function deleteTrip(tripId, event) {
   event.stopPropagation(); // Prevent triggering the trip click
@@ -414,11 +430,11 @@ function renderItems() {
       items.forEach(item => {
         const itemDiv = document.createElement('div');
         itemDiv.className = `item ${item.purchased ? 'purchased' : ''}`;
-        const quantityDisplay = item.quantity > 1 ? `<span class="item-quantity">(${item.quantity})</span>` : '';
         itemDiv.innerHTML = `
           <input type="checkbox" ${item.purchased ? 'checked' : ''} onchange="togglePurchased('${item.id}')" />
-          <span class="item-name">${escapeHtml(item.name)} ${quantityDisplay}</span>
-          <button class="delete-btn" onclick="deleteItem('${item.id}')">Delete</button>
+          <span class="item-name">${escapeHtml(item.name)}</span>
+          <span class="item-quantity" onclick="editQuantity('${item.id}', ${item.quantity})">(${item.quantity})</span>
+          <button class="delete-btn" onclick="deleteItem('${item.id}')">×</button>
         `;
         itemsList.appendChild(itemDiv);
       });
@@ -455,6 +471,7 @@ function escapeHtml(text) {
 window.togglePurchased = togglePurchased;
 window.deleteItem = deleteItem;
 window.deleteTrip = deleteTrip;
+window.editQuantity = editQuantity;
 
 // Initialize app
 init();
